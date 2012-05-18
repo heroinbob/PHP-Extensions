@@ -6,37 +6,38 @@
 #include "ext/session/php_session.h"
 
 // Include our header that defines our method
-#include "groundctrl.h"
+#include "hackify.h"
 
 // Define the function(s) we want to add.
-zend_function_entry groundctrl_functions[] = {
-	PHP_FE(groundctrl_session_decode, NULL)
+zend_function_entry hackify_functions[] = {
+	PHP_FE(decode_session_to_array, NULL)
 	{NULL, NULL, NULL}
 };
 
-// groundctrl_functions is our struct defined above.
+// hackify_functions is our struct defined above.
 // this can be used to specify globals, php.ini info, startup & teardown functions, etc.
-zend_module_entry groundctrl_module_entry = {
+zend_module_entry hackify_module_entry = {
 	STANDARD_MODULE_HEADER,
-	GROUNDCTRL_EXTNAME,
-	groundctrl_functions,
+	HACKIFY_EXTNAME,
+	hackify_functions,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
 	NULL,
-	GROUNDCTRL_VERSION,
+	HACKIFY_VERSION,
 	STANDARD_MODULE_PROPERTIES
 };
 
 // Install our module
-ZEND_GET_MODULE(groundctrl)
+ZEND_GET_MODULE(hackify)
 
 /*
  * Jeff McKenzie - 5/17/2012
- * Decode an encoded session string to an array returned to the script
+ * Decode an encoded session string to an array returned to the script.
+ * Returns an array or false otherwise
  */
-PHP_FUNCTION(groundctrl_session_decode) {
+PHP_FUNCTION(decode_session_to_array) {
 
 	/*
 	 * The API for PHP functions passes in the following that are available for our use
@@ -76,7 +77,7 @@ PHP_FUNCTION(groundctrl_session_decode) {
 	php_unserialize_data_t varHash;
 	zval *http_session_vars;
 
-	//php_printf("groundctrl_session_decode setup complete. Initializing varHash...\n");
+	//php_printf("decode_session_to_array setup complete. Initializing varHash...\n");
 
 	// Set varHash to php_unserialize_data_t
 	PHP_VAR_UNSERIALIZE_INIT(varHash);
@@ -95,7 +96,7 @@ PHP_FUNCTION(groundctrl_session_decode) {
 		//php_printf("\tNew iteration started...\n\n");
 
 		// Check to see where the next delimitor is, if there is none then break
-		while (*bufferChunk != GROUNDCTRL_DATA_DELIMITOR) {
+		while (*bufferChunk != HACKIFY_DATA_DELIMITOR) {
 			if (++bufferChunk >= endptr) {
 				//php_printf("\tbufferChunk >= entptr - going to break_outer_loop");
 				goto break_outer_loop;
@@ -104,7 +105,7 @@ PHP_FUNCTION(groundctrl_session_decode) {
 
 		//php_printf("\tdelimitor found...\n");
 
-		if (dataBuffer[0] == GROUNDCTRL_UNDEF_MARKER) {
+		if (dataBuffer[0] == HACKIFY_UNDEF_MARKER) {
 			//php_printf("\tdataBuffer contains an undefined marker.\n");
 
 			// The current item is undefined

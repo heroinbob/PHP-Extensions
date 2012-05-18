@@ -1,4 +1,4 @@
-ground(ctrl) php extension
+hackify php extension
 5/17/2012
 
 Build Setup instructions
@@ -8,6 +8,6 @@ Build Setup instructions
 2) Place this folder in the ext folder with the other extensions
 3) run "phpize" (should be installed along with PHP on the machine)
 4) run "./configure" (see other tutorials for enabling debugging and all that nonsense.
-5) If all went well you can run "make" which will build and put the "groundctrl.so" file in the "modules" folder.
+5) If all went well you can run "make" which will build and put the "hackify.so" file in the "modules" folder.
 
 To rebuild the module after changing code run "make clean" then "make".

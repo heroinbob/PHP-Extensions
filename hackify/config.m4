@@ -1,17 +1,17 @@
 dnl Lines with "dnl" are comments...
 
 PHP_ARG_ENABLE(
-	groundctrl,
-	whether to enable Ground(CTRL) support, 
-	[ --enable-groundctrl	Enable Ground(CTRL) Support ]
+	hackify,
+	whether to enable Hackify support, 
+	[ --enable-hackify	Enable Hackify Support ]
 )
 
 dnl - NOTE: the var below MUST start with PHP_extname or the ./configure command will not function 
-if test "$PHP_GROUNDCTRL" = "yes"; then
-	dnl AC_DEFINE(HAVE_GROUNDCTRL, 1, [Whether you have GroundCTRL])
+if test "$PHP_HACKIFY" = "yes"; then
+	dnl AC_DEFINE(HAVE_HACKIFY, 1, [Whether you have Hackify])
 	
 	dnl - This defines the extension
-	PHP_NEW_EXTENSION(groundctrl, groundctrl.c, $ext_shared)
+	PHP_NEW_EXTENSION(hackify, hackify.c, $ext_shared)
 	
 	case $build_os in
 	darwin1*.*.*)
